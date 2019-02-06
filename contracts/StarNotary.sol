@@ -56,8 +56,8 @@ contract StarNotary is ERC721 {
         }
     }
 
-    // Implement Task 1 lookUptokenIdToStarInfo
-    function lookUptokenIdToStarInfo (uint _tokenId) public view returns (string memory) {
+    // Implement Task 1 lookupTokenIdToStarInfo
+    function lookupTokenIdToStarInfo (uint _tokenId) public view returns (string memory) {
         //1. You should return the Star saved in tokenIdToStarInfo mapping
         require(tokenIdToStarInfo[_tokenId] > 0, "The star should exist");
         return tokenIdToStartInfo[_tokenId].name
@@ -72,8 +72,11 @@ contract StarNotary is ERC721 {
     //}
 
     // Implement Task 1 Transfer Stars
-    //function transferStar(address _to1, uint256 _tokenId) public {
+    function transferStar(address _to1, uint256 _tokenId) public {
         //1. Check if the sender is the ownerOf(_tokenId)
+        require(msg.sender == ownerOf(_tokenId), "Sender needs to own the token")
+
         //2. Use the transferFrom(from, to, tokenId); function to transfer the Star
-    //}
+        transferFrom(msg.sender, _to1, _tokenId);
+    }
 }
