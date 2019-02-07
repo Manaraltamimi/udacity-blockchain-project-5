@@ -77,7 +77,7 @@ it('lets user2 buy a star and decreases its balance in ether', async() => {
 
 it('can add the star name and star symbol properly', async() => {
     // 1. create a Star with different tokenId
-    let tokenId = 42;
+    let tokenId = 6;
     let instance = await StarNotary.deployed();
     await instance.createStar('Awesome Star!', tokenId, {from: accounts[0]}); // not really necessary as name and symbol are constant state variables
 
@@ -98,8 +98,13 @@ it('lets a user transfer a star', async() => {
     // 3. Verify the star owner changed.
 });
 
-it('lookUptokenIdToStarInfo test', async() => {
+it('lookupTokenIdToStarInfo test', async() => {
     // 1. create a Star with different tokenId
-    // 2. Call your method lookUptokenIdToStarInfo
+    let starId = 9;
+    let instance = await StarNotary.deployed();
+    await instance.createStar('lookupTokenIdToStarInfo test', starId, {from: accounts[0]}); // not really necessary as name and symbol are constant state variables
+
+    // 2. Call your method lookupTokenIdToStarInfo
     // 3. Verify if you Star name is the same
+    assert.equal(await instance.lookupTokenIdToStarInfo(starId), 'lookupTokenIdToStarInfo test');
 });
